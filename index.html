@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafe Gold | कैफे गोल्ड — Sangli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#c9920a;--gold-light:#e8b020;--gold-pale:#fdf3d8;
+  --dark:#0f0a02;--brown:#3d2006;--cream:#fdf8f0;
+  --text:#1a1005;--muted:#7a6240;--border:rgba(201,146,10,0.18);
+  --card:#fffdf7;--white:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.6s;}
+#loader.hidden{opacity:0;pointer-events:none;}
+.loader-logo{font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--gold);letter-spacing:4px;animation:pulse 1.5s infinite;}
+.loader-sub{color:rgba(255,255,255,0.4);font-size:13px;letter-spacing:3px;margin-top:8px;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:var(--dark);border-bottom:1px solid rgba(201,146,10,0.2);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:66px;}
+.nav-logo{display:flex;flex-direction:column;line-height:1;}
+.nav-logo-en{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold);letter-spacing:2px;}
+.nav-logo-hi{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:1px;margin-top:1px;}
+.nav-links{display:flex;gap:32px;}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.5px;transition:color 0.2s;position:relative;padding-bottom:4px;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width 0.3s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{background:var(--gold);color:var(--dark);border:none;padding:10px 22px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:0.5px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--gold-light);}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-hamburger span{width:24px;height:2px;background:var(--gold);border-radius:2px;display:block;}
+
+/* ── HERO ── */
+.hero{position:relative;height:560px;overflow:hidden;background:var(--dark);}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1400&q=80') center/cover;opacity:0.35;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,10,2,0.9) 0%,rgba(15,10,2,0.4) 100%);}
+.hero-gold-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 32px;height:100%;display:flex;align-items:center;}
+.hero-text{max-width:640px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,146,10,0.15);border:1px solid rgba(201,146,10,0.35);border-radius:20px;padding:6px 16px;margin-bottom:24px;}
+.hero-badge-dot{width:7px;height:7px;background:#4caf50;border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hero-badge span{color:rgba(255,255,255,0.8);font-size:12px;letter-spacing:1px;}
+.hero-hindi{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);letter-spacing:3px;margin-bottom:8px;opacity:0.8;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:68px;color:#fff;line-height:1.0;margin-bottom:10px;font-weight:700;}
+.hero-title span{color:var(--gold);}
+.hero-sub{color:rgba(255,255,255,0.6);font-size:16px;font-weight:300;margin-bottom:32px;line-height:1.6;}
+.hero-stars{display:flex;align-items:center;gap:10px;margin-bottom:32px;}
+.stars{color:var(--gold);font-size:18px;letter-spacing:2px;}
+.hero-stars span{color:rgba(255,255,255,0.7);font-size:14px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--dark);border:none;padding:14px 30px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:0.5px;transition:all 0.2s;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.35);padding:13px 26px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── TABS ── */
+.tabs-bar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:66px;z-index:90;}
+.tabs-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;gap:0;overflow-x:auto;}
+.tab{padding:16px 22px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2.5px solid transparent;white-space:nowrap;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;font-family:'Outfit',sans-serif;}
+.tab.active,.tab:hover{color:var(--gold);}
+.tab.active{border-bottom-color:var(--gold);}
+
+/* ── INFO BAR ── */
+.info-bar{background:var(--gold-pale);border-bottom:1px solid var(--border);}
+.info-bar-inner{max-width:1200px;margin:0 auto;padding:14px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;}
+.info-chip{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--brown);}
+.info-chip svg{width:15px;height:15px;flex-shrink:0;}
+.feature-pills{display:flex;gap:8px;margin-left:auto;}
+.pill{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--brown);font-weight:500;}
+
+/* ── MAIN LAYOUT ── */
+main{max-width:1200px;margin:0 auto;padding:40px 32px;}
+.layout{display:grid;grid-template-columns:1fr 360px;gap:32px;}
+
+/* ── SECTION CARD ── */
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:28px;}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.section-head-line{width:3px;height:24px;background:var(--gold);border-radius:2px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--brown);font-weight:700;}
+
+/* ── MENU ── */
+.menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.menu-tab{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:7px 18px;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif;}
+.menu-tab.active,.menu-tab:hover{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+.menu-category{display:none;}
+.menu-category.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+.menu-item{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 16px;display:flex;flex-direction:column;gap:6px;transition:all 0.2s;cursor:default;}
+.menu-item:hover{border-color:var(--gold);transform:translateY(-2px);}
+.menu-item-icon{font-size:24px;margin-bottom:4px;}
+.menu-item-name{font-size:15px;font-weight:600;color:var(--brown);}
+.menu-item-price{font-size:16px;font-weight:700;color:var(--gold);}
+.menu-item-price::before{content:'₹';}
+
+/* ── GALLERY ── */
+.gallery-filter{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.gal-btn{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:7px 18px;font-size:13px;color:var(--muted);cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif;}
+.gal-btn.active{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.gallery-item{border-radius:12px;overflow:hidden;aspect-ratio:1;cursor:pointer;position:relative;background:var(--gold-pale);}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
+.gallery-item:hover img{transform:scale(1.06);}
+.gallery-item-overlay{position:absolute;inset:0;background:rgba(15,10,2,0.5);opacity:0;transition:opacity 0.3s;display:flex;align-items:center;justify-content:center;}
+.gallery-item:hover .gallery-item-overlay{opacity:1;}
+.gallery-item-overlay span{color:#fff;font-size:13px;font-weight:500;letter-spacing:0.5px;}
+.gallery-placeholder{background:var(--gold-pale);border-radius:12px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:2px dashed var(--border);}
+.gallery-placeholder svg{width:28px;height:28px;color:var(--gold);opacity:0.6;}
+.gallery-placeholder p{font-size:12px;color:var(--muted);}
+
+/* ── LIGHTBOX ── */
+.lightbox-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:1000;align-items:center;justify-content:center;}
+.lightbox-wrap.open{display:flex;}
+.lightbox-img{max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;}
+.lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;}
+.lightbox-caption{position:absolute;bottom:24px;color:rgba(255,255,255,0.7);font-size:14px;}
+
+/* ── REVIEWS ── */
+.rating-overview{display:flex;gap:32px;align-items:center;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.big-num{font-family:'Cormorant Garamond',serif;font-size:72px;color:var(--gold);line-height:1;font-weight:700;}
+.rating-right{flex:1;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.bar-num{font-size:12px;color:var(--muted);width:12px;text-align:right;}
+.bar-track{flex:1;height:7px;background:rgba(201,146,10,0.12);border-radius:4px;overflow:hidden;}
+.bar-fill{height:100%;background:var(--gold);border-radius:4px;}
+.bar-count{font-size:12px;color:var(--muted);width:20px;}
+.review-item{padding:20px 0;border-bottom:1px solid var(--border);}
+.review-item:last-child{border-bottom:none;}
+.review-header{display:flex;gap:12px;align-items:center;margin-bottom:10px;}
+.avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0;}
+.reviewer-name{font-size:15px;font-weight:600;color:var(--brown);}
+.reviewer-meta{font-size:12px;color:var(--muted);margin-top:2px;}
+.review-stars{color:var(--gold);font-size:14px;letter-spacing:1px;margin-bottom:8px;}
+.review-text{font-size:14px;color:var(--muted);line-height:1.65;}
+.owner-reply{background:rgba(201,146,10,0.06);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:12px 16px;margin-top:12px;}
+.owner-reply-label{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.owner-reply-text{font-size:13px;color:var(--brown);}
+.review-like{display:flex;align-items:center;gap:6px;margin-top:10px;background:none;border:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;color:var(--muted);padding:0;transition:color 0.2s;}
+.review-like:hover{color:var(--gold);}
+.review-like svg{width:15px;height:15px;}
+.badge-guide{background:rgba(201,146,10,0.12);color:#7a5500;font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;}
+
+/* ── WRITE REVIEW FORM ── */
+.write-review{background:var(--gold-pale);border:1px solid var(--border);border-radius:12px;padding:24px;margin-top:20px;}
+.write-review h3{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--brown);margin-bottom:16px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase;}
+.form-group input,.form-group textarea{width:100%;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold);}
+.form-group textarea{height:90px;resize:vertical;}
+.star-select{display:flex;gap:6px;margin-bottom:14px;}
+.star-select button{background:none;border:none;font-size:24px;cursor:pointer;color:#ddd;transition:color 0.2s;padding:0;}
+.star-select button.active,.star-select button:hover{color:var(--gold);}
+.form-success{display:none;background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.3);border-radius:8px;padding:12px 16px;font-size:14px;color:#2e7d32;margin-top:10px;}
+
+/* ── SIDEBAR ── */
+.sidebar{}
+.map-box{border-radius:14px;overflow:hidden;height:190px;position:relative;background:#e8ddd0;margin-bottom:20px;border:1px solid var(--border);}
+.map-svg{width:100%;height:100%;}
+.map-label{position:absolute;bottom:12px;left:12px;background:var(--white);border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;color:var(--brown);border:1px solid var(--border);}
+.info-sidebar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:20px;}
+.info-row{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border);}
+.info-row:first-child{padding-top:0;}
+.info-row:last-child{border-bottom:none;padding-bottom:0;}
+.info-icon{width:36px;height:36px;background:rgba(201,146,10,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.info-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;}
+.info-value{font-size:14px;font-weight:500;color:var(--brown);}
+.open-badge{display:inline-block;background:rgba(76,175,80,0.12);color:#2e7d32;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;}
+
+/* ── POPULAR TIMES ── */
+.popular-times{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:20px;}
+.pt-title{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:14px;}
+.pt-bars{display:flex;gap:3px;align-items:flex-end;height:60px;}
+.pt-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.pt-bar{width:100%;background:rgba(201,146,10,0.15);border-radius:3px 3px 0 0;transition:background 0.2s;}
+.pt-bar.peak{background:var(--gold);}
+.pt-bar-label{font-size:9px;color:var(--muted);}
+
+/* ── CONTACT FORM ── */
+.contact-card{background:var(--dark);border-radius:14px;padding:24px;margin-bottom:20px;}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);margin-bottom:16px;}
+.contact-form input,.contact-form textarea{width:100%;background:rgba(255,255,255,0.07);border:1px solid rgba(201,146,10,0.2);border-radius:8px;padding:10px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:#fff;outline:none;margin-bottom:10px;transition:border-color 0.2s;}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold);}
+.contact-form textarea{height:70px;resize:vertical;}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,0.3);}
+.contact-success{display:none;color:#81c784;font-size:13px;margin-top:8px;}
+
+/* ── NEARBY ── */
+.nearby-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:20px;}
+.nearby-title{font-size:14px;font-weight:600;color:var(--brown);margin-bottom:14px;}
+.nearby-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.nearby-item:last-child{border-bottom:none;}
+.nearby-name{font-size:13px;font-weight:500;color:var(--brown);}
+.nearby-meta{font-size:12px;color:var(--muted);}
+.nearby-rating{font-size:13px;font-weight:600;color:var(--gold);}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);border-top:1px solid rgba(201,146,10,0.2);margin-top:60px;}
+.footer-inner{max-width:1200px;margin:0 auto;padding:48px 32px 24px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-logo-en{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--gold);letter-spacing:2px;}
+.footer-logo-hi{font-size:13px;color:rgba(255,255,255,0.3);margin-top:2px;margin-bottom:12px;}
+.footer-desc{font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;}
+.footer-col-title{font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:20px;display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.3);}
+.footer-gold{color:var(--gold);}
+.insta-link{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
+.insta-link:hover{color:var(--gold);}
+
+/* ── SECTION REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;}
+  .hero-title{font-size:44px;}
+  .footer-grid{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .menu-category.active{grid-template-columns:repeat(2,1fr);}
+  .nav-links{display:none;}
+  .nav-hamburger{display:flex;}
+  .mobile-menu{display:none;position:absolute;top:66px;left:0;right:0;background:var(--dark);border-top:1px solid rgba(201,146,10,0.2);padding:20px 32px;}
+  .mobile-menu.open{display:flex;flex-direction:column;gap:16px;}
+  .mobile-menu a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:15px;}
+}
+@media(max-width:560px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  main{padding:24px 16px;}
+  .info-bar-inner{padding:12px 16px;}
+  .nav-inner{padding:0 16px;}
+  .tabs-inner{padding:0 16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-logo">CAFE GOLD</div>
+  <div class="loader-sub">कैफे गोल्ड — SANGLI</div>
+</div>
+
+<div class="lightbox-wrap" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <span class="nav-logo-en">CAFE GOLD</span>
+      <span class="nav-logo-hi">कैफे गोल्ड</span>
+    </div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-cta" onclick="scrollTo('#contact')">Reserve a Table</button>
+    <button class="nav-hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#overview" onclick="toggleMobile()">Overview</a>
+    <a href="#menu" onclick="toggleMobile()">Menu</a>
+    <a href="#gallery" onclick="toggleMobile()">Gallery</a>
+    <a href="#reviews" onclick="toggleMobile()">Reviews</a>
+    <a href="#contact" onclick="toggleMobile()">Contact</a>
+  </div>
+</nav>
+
+<section class="hero" id="overview">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-gold-line"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>OPEN NOW · CLOSES 9 PM</span>
+      </div>
+      <div class="hero-hindi" id="hero-hindi">कैफे गोल्ड</div>
+      <h1 class="hero-title">Where Every<br>Sip <span>Shines</span></h1>
+      <p class="hero-sub">Gulmohar Colony, Pushpraj Chowk, Sangli<br>Dine-in · Drive-through · Delivery</p>
+      <div class="hero-stars">
+        <span class="stars">★★★★★</span>
+        <span id="hero-rating">5.0 · 14 reviews</span>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-gold" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">View Menu</button>
+        <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Reserve a Table</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab active" onclick="scrollTo('#overview')">Overview</button>
+    <button class="tab" onclick="scrollTo('#menu')">Menu</button>
+    <button class="tab" onclick="scrollTo('#gallery')">Gallery</button>
+    <button class="tab" onclick="scrollTo('#reviews')">Reviews</button>
+    <button class="tab" onclick="scrollTo('#contact')">About</button>
+  </div>
+</div>
+
+<div class="info-bar">
+  <div class="info-bar-inner">
+    <div class="info-chip">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Gulmohar Colony, Sangli Miraj Kupwad 416416
+    </div>
+    <div class="info-chip">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      096971 52100
+    </div>
+    <div class="feature-pills">
+      <div class="pill">Dine-in</div>
+      <div class="pill">Drive-through</div>
+      <div class="pill">Delivery</div>
+      <div class="pill">LGBTQ+ friendly</div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="layout">
+    <div class="left-col">
+
+      <!-- MENU -->
+      <div class="section-card reveal" id="menu">
+        <div class="section-head">
+          <div class="section-head-line"></div>
+          <h2 class="section-title">Our Menu</h2>
+        </div>
+        <div class="menu-tabs" id="menu-tabs">
+          <button class="menu-tab active" data-cat="fries">🍟 Fries</button>
+          <button class="menu-tab" data-cat="shakes">🥤 Shakes</button>
+          <button class="menu-tab" data-cat="momos">🥟 Momos</button>
+          <button class="menu-tab" data-cat="coffee">☕ Coffee</button>
+        </div>
+        <div id="menu-content"></div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="section-card reveal" id="gallery">
+        <div class="section-head">
+          <div class="section-head-line"></div>
+          <h2 class="section-title">Photos & Gallery</h2>
+        </div>
+        <div class="gallery-filter">
+          <button class="gal-btn active" data-filter="all">All</button>
+          <button class="gal-btn" data-filter="exterior">Exterior</button>
+          <button class="gal-btn" data-filter="menu">Menu</button>
+          <button class="gal-btn" data-filter="food">Food</button>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="section-card reveal" id="reviews">
+        <div class="section-head">
+          <div class="section-head-line"></div>
+          <h2 class="section-title">Customer Reviews</h2>
+        </div>
+        <div class="rating-overview">
+          <div class="big-num" id="avg-rating">5.0</div>
+          <div class="rating-right">
+            <div style="color:var(--gold);font-size:22px;letter-spacing:3px;margin-bottom:4px;">★★★★★</div>
+            <div style="font-size:13px;color:var(--muted);margin-bottom:12px;" id="total-reviews">Based on 14 reviews</div>
+            <div id="rating-bars"></div>
+          </div>
+        </div>
+        <div id="reviews-list"></div>
+        <div class="write-review" id="contact">
+          <h3>Write a Review</h3>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="rev-name" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label>Rating</label>
+            <div class="star-select" id="star-select">
+              <button data-val="1">★</button>
+              <button data-val="2">★</button>
+              <button data-val="3">★</button>
+              <button data-val="4">★</button>
+              <button data-val="5">★</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Your Experience</label>
+            <textarea id="rev-text" placeholder="Share your experience at Cafe Gold..."></textarea>
+          </div>
+          <button class="btn-gold" onclick="submitReview()">Submit Review</button>
+          <div class="form-success" id="rev-success">✓ Thank you for your review!</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- MAP -->
+      <div class="map-box">
+        <svg class="map-svg" viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg">
+          <rect width="360" height="190" fill="#e0d5c0"/>
+          <defs><pattern id="g" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0L0 0 0 36" fill="none" stroke="#c8b898" stroke-width="0.6"/></pattern></defs>
+          <rect width="360" height="190" fill="url(#g)"/>
+          <rect x="50" y="30" width="70" height="45" rx="4" fill="#cfc0a5"/>
+          <rect x="180" y="20" width="90" height="55" rx="4" fill="#cfc0a5"/>
+          <rect x="10" y="120" width="110" height="38" rx="4" fill="#cfc0a5"/>
+          <rect x="230" y="115" width="75" height="45" rx="4" fill="#cfc0a5"/>
+          <rect x="0" y="86" width="360" height="12" fill="#d8cdb5"/>
+          <rect x="160" y="0" width="12" height="190" fill="#d8cdb5"/>
+          <circle cx="172" cy="92" r="14" fill="#c9920a" opacity="0.2"/>
+          <circle cx="172" cy="88" r="10" fill="#c9920a"/>
+          <circle cx="172" cy="88" r="4" fill="#fff"/>
+          <line x1="172" y1="98" x2="172" y2="108" stroke="#c9920a" stroke-width="2"/>
+        </svg>
+        <div class="map-label">📍 Cafe Gold, Sangli</div>
+      </div>
+
+      <!-- INFO -->
+      <div class="info-sidebar">
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <div class="info-label">Address</div>
+            <div class="info-value">Mali Chitrmandir, Gulmohar Colony, Pushpraj Chowk, Sangli 416416</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value"><a href="tel:09697152100" style="color:var(--gold);text-decoration:none;">096971 52100</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🕐</div>
+          <div>
+            <div class="info-label">Hours</div>
+            <div class="info-value"><span class="open-badge">Open Now</span></div>
+            <div style="font-size:12px;color:var(--muted);margin-top:5px;">Open Everyday · 7:00 AM – 9:00 PM</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📷</div>
+          <div>
+            <div class="info-label">Instagram</div>
+            <div class="info-value"><a href="https://instagram.com" target="_blank" style="color:var(--gold);text-decoration:none;">instagram.com/cafegold</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🛵</div>
+          <div>
+            <div class="info-label">Services</div>
+            <div class="info-value">Dine-in · Drive-through · Delivery</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POPULAR TIMES -->
+      <div class="popular-times">
+        <div class="pt-title">Popular Times · Tuesday</div>
+        <div class="pt-bars" id="pt-bars"></div>
+      </div>
+
+      <!-- CONTACT CARD -->
+      <div class="contact-card">
+        <div class="contact-title">Reserve a Table</div>
+        <div class="contact-form">
+          <input type="text" id="c-name" placeholder="Your Name">
+          <input type="tel" id="c-phone" placeholder="Phone Number">
+          <textarea id="c-msg" placeholder="Message / Special Request (optional)"></textarea>
+          <button class="btn-gold" style="width:100%" onclick="submitContact()">Send Request</button>
+          <div class="contact-success" id="c-success">✓ We'll call you back soon!</div>
+        </div>
+      </div>
+
+      <!-- NEARBY -->
+      <div class="nearby-card">
+        <div class="nearby-title">People Also Visit</div>
+        <div class="nearby-item">
+          <div><div class="nearby-name">The Caffix Cafe</div><div class="nearby-meta">Coffee shop · Sangli</div></div>
+          <div class="nearby-rating">★ 4.0</div>
+        </div>
+        <div class="nearby-item">
+          <div><div class="nearby-name">Cafe Choco Craze</div><div class="nearby-meta">Coffee shop · Sangli</div></div>
+          <div class="nearby-rating">★ 4.3</div>
+        </div>
+        <div class="nearby-item">
+          <div><div class="nearby-name">Cafe Hash Tag Sangli</div><div class="nearby-meta">Coffee shop · Sangli</div></div>
+          <div class="nearby-rating">★ 4.1</div>
+        </div>
+        <div class="nearby-item">
+          <div><div class="nearby-name">The Cafe Villa</div><div class="nearby-meta">Best birthday spot · Sangli</div></div>
+          <div class="nearby-rating">★ 4.6</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-en">CAFE GOLD</div>
+        <div class="footer-logo-hi">कैफे गोल्ड</div>
+        <p class="footer-desc">A premium cafe experience in the heart of Sangli. Serving the finest coffee, shakes, momos, and fries in a warm, welcoming atmosphere since 2021.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a href="#overview">Home</a>
+          <a href="#menu">Menu</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#reviews">Reviews</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-links">
+          <a href="tel:09697152100">096971 52100</a>
+          <a href="#">Gulmohar Colony, Sangli</a>
+          <a href="#">Open Everyday 7AM–9PM</a>
+          <a href="https://instagram.com" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 <span class="footer-gold">Cafe Gold</span> · Sangli, Maharashtra. All rights reserved.</p>
+      <p style="color:rgba(255,255,255,0.2);font-size:11px;">Dine-in · Drive-through · Delivery</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const API = '';
+
+let cafeData = null;
+let selectedRating = 0;
+let allGallery = [];
+
+async function init() {
+  try {
+    const res = await fetch(API + '/api/cafe');
+    cafeData = await res.json();
+    renderAll();
+  } catch(e) {
+    cafeData = getFallbackData();
+    renderAll();
+  }
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1200);
+  initReveal();
+  initPopularTimes();
+}
+
+function getFallbackData() {
+  return {
+    name:"Cafe Gold", nameHindi:"कैफे गोल्ड", rating:5.0, totalReviews:14,
+    menu:{
+      fries:[{name:"French Fries",price:60},{name:"Peri Peri Fries",price:70},{name:"Cheese Munch Fries",price:75}],
+      shakes:[{name:"Chocolate Shake",price:90},{name:"Vanilla Shake",price:80},{name:"Strawberry Shake",price:90}],
+      momos:[{name:"Veg Momos",price:60},{name:"Fried Momos",price:70},{name:"Veg Kurkure Momos",price:80}],
+      coffee:[{name:"Espresso",price:80},{name:"Cappuccino",price:100},{name:"Cold Coffee",price:120},{name:"Cafe Latte",price:110}]
+    },
+    reviews:[
+      {id:1,name:"Exotic Devil",initials:"ED",color:"#c97d2e",reviewCount:6,photoCount:6,rating:5,time:"3 years ago",text:"Go see it once and tell me if you don't like it! I guarantee you will love it. And a great place to take your girl to spend time with her. You will definitely love it and once you visit, you will go back again.",ownerReply:"Thank u... Visit again",likes:1},
+      {id:2,name:"Akshay Patil",initials:"AP",color:"#5c3a1e",badge:"Local Guide",reviewCount:13,photoCount:33,rating:5,time:"3 years ago",text:"Good service 👍👍 Best environment ❣️ Best meal😋 Food: 5/5",ownerReply:null,likes:3},
+      {id:3,name:"Cyber",initials:"CB",color:"#2e6e5c",badge:"Local Guide",reviewCount:14,photoCount:5,rating:5,time:"3 years ago",text:"Amazing place & food",ownerReply:"Thank u",likes:0},
+      {id:4,name:"Rohit Patil",initials:"RP",color:"#3a5c7a",reviewCount:2,rating:5,time:"3 years ago",text:"Dhagat lighting 😍 Meal type: Breakfast",ownerReply:null,likes:1},
+      {id:5,name:"JUNED SANDE",initials:"JS",color:"#5c3a6e",badge:"Local Guide",reviewCount:38,photoCount:51,rating:5,time:"9 months ago",text:"Order type: Take out. Great ambiance and service!",ownerReply:null,likes:0}
+    ],
+    gallery:[
+      {id:1,url:"/images/cafe-exterior.png",caption:"Cafe Gold — Sangli",category:"exterior"},
+      {id:2,url:"/images/menu-board.png",caption:"Our Menu",category:"menu"}
+    ]
+  };
+}
+
+function renderAll() {
+  renderHero();
+  renderMenu('fries');
+  renderGallery();
+  renderReviews();
+}
+
+function renderHero() {
+  if (!cafeData) return;
+  document.getElementById('hero-rating').textContent = `${cafeData.rating} · ${cafeData.totalReviews} reviews`;
+}
+
+const menuIcons = {fries:'🍟',shakes:'🥤',momos:'🥟',coffee:'☕'};
+
+function renderMenu(cat) {
+  const content = document.getElementById('menu-content');
+  const items = cafeData.menu[cat] || [];
+  content.innerHTML = `<div class="menu-category active">${items.map(i=>`
+    <div class="menu-item">
+      <div class="menu-item-icon">${menuIcons[cat]}</div>
+      <div class="menu-item-name">${i.name}</div>
+      <div class="menu-item-price">${i.price}</div>
+    </div>`).join('')}</div>`;
+}
+
+document.getElementById('menu-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.menu-tab');
+  if (!btn) return;
+  document.querySelectorAll('.menu-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(btn.dataset.cat);
+});
+
+function renderGallery(filter='all') {
+  allGallery = cafeData.gallery || [];
+  const grid = document.getElementById('gallery-grid');
+  const filtered = filter==='all' ? allGallery : allGallery.filter(g=>g.category===filter);
+
+  const realItems = filtered.map(item=>`
+    <div class="gallery-item" onclick="openLightbox('${item.url}','${item.caption}')">
+      <img src="${item.url}" alt="${item.caption}" onerror="this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;background:var(--gold-pale);\\'>📷</div>'">
+      <div class="gallery-item-overlay"><span>${item.caption}</span></div>
+    </div>`).join('');
+
+  const placeholders = [
+    {icon:'🍟',label:'Fries',cat:'food'},{icon:'☕',label:'Coffee',cat:'food'},
+    {icon:'🥟',label:'Momos',cat:'food'},{icon:'🌆',label:'Ambiance',cat:'interior'},
+    {icon:'🎂',label:'Specials',cat:'food'},{icon:'🥤',label:'Shakes',cat:'food'},
+  ];
+  const showPh = filter==='all' || filter==='food' || filter==='interior';
+  const phItems = showPh ? placeholders.filter(p=>filter==='all'||p.cat===filter).map(p=>`
+    <div class="gallery-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <p>${p.icon} ${p.label}</p>
+    </div>`).join('') : '';
+
+  grid.innerHTML = realItems + phItems;
+}
+
+document.querySelector('.gallery-filter').addEventListener('click', e=>{
+  const btn = e.target.closest('.gal-btn');
+  if (!btn) return;
+  document.querySelectorAll('.gal-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery(btn.dataset.filter);
+});
+
+function openLightbox(url, caption) {
+  document.getElementById('lightbox-img').src = url;
+  document.getElementById('lightbox-caption').textContent = caption;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.getElementById('lightbox').addEventListener('click', e=>{
+  if(e.target===document.getElementById('lightbox')) closeLightbox();
+});
+
+function renderReviews() {
+  const reviews = cafeData.reviews || [];
+  const bars = document.getElementById('rating-bars');
+  const counts = [0,0,0,0,0];
+  reviews.forEach(r=>{ if(r.rating>=1&&r.rating<=5) counts[r.rating-1]++; });
+  bars.innerHTML = [5,4,3,2,1].map(n=>{
+    const pct = reviews.length ? Math.round((counts[n-1]/reviews.length)*100) : 0;
+    return `<div class="bar-row"><div class="bar-num">${n}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div><div class="bar-count">${counts[n-1]}</div></div>`;
+  }).join('');
+
+  const list = document.getElementById('reviews-list');
+  list.innerHTML = reviews.map(r=>`
+    <div class="review-item" id="rev-${r.id}">
+      <div class="review-header">
+        <div class="avatar" style="background:${r.color}">${r.initials}</div>
+        <div>
+          <div class="reviewer-name">${r.name} ${r.badge?`<span class="badge-guide">${r.badge}</span>`:''}</div>
+          <div class="reviewer-meta">${[r.reviewCount?r.reviewCount+' reviews':'',r.photoCount?r.photoCount+' photos':'',r.time].filter(Boolean).join(' · ')}</div>
+        </div>
+      </div>
+      <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+      <div class="review-text">${r.text}</div>
+      ${r.ownerReply?`<div class="owner-reply"><div class="owner-reply-label">Owner's Reply</div><div class="owner-reply-text">${r.ownerReply}</div></div>`:''}
+      <button class="review-like" onclick="likeReview(${r.id},this)">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+        <span>${r.likes||0} Helpful</span>
+      </button>
+    </div>`).join('');
+}
+
+async function likeReview(id, btn) {
+  btn.style.color = 'var(--gold)';
+  btn.disabled = true;
+  try {
+    const res = await fetch(API + `/api/reviews/${id}/like`, {method:'POST'});
+    const data = await res.json();
+    btn.querySelector('span').textContent = `${data.likes} Helpful`;
+  } catch(e) {
+    const span = btn.querySelector('span');
+    const cur = parseInt(span.textContent) || 0;
+    span.textContent = `${cur+1} Helpful`;
+  }
+}
+
+document.getElementById('star-select').addEventListener('click', e=>{
+  const btn = e.target.closest('button[data-val]');
+  if (!btn) return;
+  selectedRating = parseInt(btn.dataset.val);
+  document.querySelectorAll('#star-select button').forEach((b,i)=>{
+    b.classList.toggle('active', i < selectedRating);
+  });
+});
+
+async function submitReview() {
+  const name = document.getElementById('rev-name').value.trim();
+  const text = document.getElementById('rev-text').value.trim();
+  if (!name || !text || !selectedRating) {
+    alert('Please fill in your name, rating, and review.');
+    return;
+  }
+  try {
+    const res = await fetch(API + '/api/reviews', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, rating:selectedRating, text})
+    });
+    const newRev = await res.json();
+    cafeData.reviews.unshift(newRev);
+  } catch(e) {
+    const initials = name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    cafeData.reviews.unshift({id:Date.now(),name,initials,color:'#c97d2e',rating:selectedRating,time:'Just now',text,likes:0});
+  }
+  renderReviews();
+  document.getElementById('rev-name').value='';
+  document.getElementById('rev-text').value='';
+  selectedRating=0;
+  document.querySelectorAll('#star-select button').forEach(b=>b.classList.remove('active'));
+  const s = document.getElementById('rev-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none', 3000);
+}
+
+async function submitContact() {
+  const name = document.getElementById('c-name').value.trim();
+  const phone = document.getElementById('c-phone').value.trim();
+  const message = document.getElementById('c-msg').value.trim();
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  try {
+    await fetch(API + '/api/contact', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, phone, message})
+    });
+  } catch(e) {}
+  document.getElementById('c-name').value='';
+  document.getElementById('c-phone').value='';
+  document.getElementById('c-msg').value='';
+  const s = document.getElementById('c-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none', 3000);
+}
+
+function initPopularTimes() {
+  const times = [0,0,0,0,0,0,10,30,55,70,60,65,80,75,60,70,90,95,85,60,30,10,0,0];
+  const labels = ['6a','','','9a','','','12p','','','3p','','','6p','','','9p','','','','','','','',''];
+  const max = Math.max(...times);
+  const bars = document.getElementById('pt-bars');
+  const now = new Date().getHours();
+  bars.innerHTML = times.map((v,i)=>`
+    <div class="pt-bar-wrap">
+      <div class="pt-bar${v>60?' peak':''}" style="height:${max?Math.round((v/max)*50):0}px${i===now?';outline:2px solid var(--gold)':''}" title="${labels[i]||''}"></div>
+      ${labels[i]?`<div class="pt-bar-label">${labels[i]}</div>`:'<div class="pt-bar-label"></div>'}
+    </div>`).join('');
+}
+
+function initReveal() {
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+function scrollTo(sel) {
+  document.querySelector(sel)?.scrollIntoView({behavior:'smooth'});
+}
+
+function toggleMobile() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+init();
+</script>
+</body>
+</html>
